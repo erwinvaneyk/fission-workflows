@@ -56,7 +56,6 @@ func main() {
 		cmdWorkflow,
 		cmdInvocation,
 		cmdValidate,
-		cmdAdmin,
 		cmdVersion,
 	}
 	app.Action = func(ctx *cli.Context) error {
