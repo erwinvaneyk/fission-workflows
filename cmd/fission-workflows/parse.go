@@ -31,7 +31,7 @@ var cmdParse = cli.Command{
 
 		parserType := ctx.String("type")
 		if parserType != "" && !parse.Supports(parserType) {
-			fmt.Printf("Unknown parser '%s'; will try all parsers.", parserType)
+			log.Fatalf("Unknown parser '%s'", parserType)
 		}
 
 		for _, path := range ctx.Args() {
