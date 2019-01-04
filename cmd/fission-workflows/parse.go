@@ -40,14 +40,15 @@ var cmdParse = cli.Command{
 
 			f, err := os.Open(fnName)
 			if err != nil {
+				f.Close()
 				panic(err)
 			}
 
 			wfSpec, err := parse.ParseWith(f, parserType)
+			f.Close()
 			if err != nil {
 				panic(err)
 			}
-
 			fmt.Println(toFormattedJSON(wfSpec))
 		}
 		return nil
