@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/fission/fission-workflows/pkg/apiserver"
 	"github.com/urfave/cli"
 )
 
@@ -16,6 +17,10 @@ var cmdStatus = cli.Command{
 		resp, err := client.Admin.Status(ctx)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		if resp.Status != apiserver.StatusOK {
+			fmt.Fprintln(os.Stderr, "Status not okay.")
 			os.Exit(1)
 		}
 		fmt.Printf(resp.Status)
