@@ -144,7 +144,7 @@ var cmdInvocation = cli.Command{
 					logrus.Fatalf("Failed to retrieve events for %s: %v", wfiID, err)
 				}
 
-				for _, event := range events {
+				for _, event := range events.GetEvents() {
 					err := (&jsonpb.Marshaler{
 						Indent: "	",
 					}).Marshal(os.Stdout, event)
