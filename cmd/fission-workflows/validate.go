@@ -7,6 +7,7 @@ import (
 	"github.com/fission/fission-workflows/pkg/parse/protobuf"
 	"github.com/fission/fission-workflows/pkg/parse/yaml"
 	"github.com/fission/fission-workflows/pkg/types"
+	"github.com/golang/protobuf/jsonpb"
 
 	"github.com/fission/fission-workflows/pkg/types/validate"
 	"github.com/urfave/cli"
@@ -20,7 +21,7 @@ var cmdValidate = cli.Command{
 		cli.StringFlag{
 			Name:  "type, t",
 			Value: "yaml",
-			Usage: "encoding of the file(s) [yaml|proto]",
+			Usage: "encoding of the file(s) [yaml|proto|json]",
 		},
 	},
 	Action: commandContext(func(ctx Context) error {
@@ -67,6 +68,11 @@ func validateWorkflowDefinition(path string, fType string) error {
 		spec, err = protobuf.Parse(file)
 		if err != nil {
 			return fmt.Errorf("failed to parse protobuf definition: %v", err)
+		}
+	case "json":
+		err := jsonpb.Unmarshal(file, spec)
+		if err != nil {
+			return fmt.Errorf("failed to parse json definition: %v", err)
 		}
 	default:
 		return fmt.Errorf("unsupported workflow definition format: %v", fType)
