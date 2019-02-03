@@ -10,6 +10,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/erwinvaneyk/go-grpc-prometheus"
 	"github.com/fission/fission-workflows/pkg/api"
 	"github.com/fission/fission-workflows/pkg/api/aggregates"
 	"github.com/fission/fission-workflows/pkg/api/store"
@@ -37,7 +38,6 @@ import (
 	executor "github.com/fission/fission/executor/client"
 	"github.com/gorilla/handlers"
 	"github.com/grpc-ecosystem/go-grpc-middleware"
-	"github.com/grpc-ecosystem/go-grpc-prometheus"
 	grpcruntime "github.com/grpc-ecosystem/grpc-gateway/runtime"
 	grpc_opentracing "github.com/grpc-ecosystem/grpc-opentracing/go/otgrpc"
 	"github.com/opentracing/opentracing-go"
@@ -313,6 +313,22 @@ func Run(ctx context.Context, opts *Options) error {
 	if opts.AdminAPI || opts.WorkflowAPI || opts.InvocationAPI {
 		if opts.Metrics {
 			log.Debug("Instrumenting gRPC server with Prometheus metrics")
+			// Records latency summaries for all gRPC endpoints, documentation suggests that it can become expensive.
+			grpc_prometheus.EnableHandlingTimeSummary(map[float64]float64{
+				0:     0.0001,
+				0.001: 0.0001,
+				0.01:  0.0001,
+				0.02:  0.0001,
+				0.1:   0.0001,
+				0.25:  0.0001,
+				0.50:  0.0001,
+				0.75:  0.0001,
+				0.90:  0.0001,
+				0.98:  0.0001,
+				0.99:  0.0001,
+				0.999: 0.0001,
+				1:     0.0001,
+			})
 			grpc_prometheus.Register(grpcServer)
 		}
 

@@ -1,5 +1,5 @@
-hash: 732742a334c96e37ca64c0ca151ee3d95cff64aaea0abdbef4c29a3f4ee5cb88
-updated: 2019-01-26T01:02:21.481196+01:00
+hash: a1728c4571f76153ee084209c4ba9c1f13e05b3d04e818700feef05f2aedac25
+updated: 2019-02-03T15:15:05.230758+01:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -39,6 +39,8 @@ imports:
   - internal
   - internal/errors
   - internal/prefix
+- name: github.com/erwinvaneyk/go-grpc-prometheus
+  version: 8cf58054829b35b7e37a782bb8c4dd8e8275aeff
 - name: github.com/fatih/color
   version: 5b77d2a35fb0ede96d138fc9a99f5c9b6aef11b4
 - name: github.com/fatih/structs

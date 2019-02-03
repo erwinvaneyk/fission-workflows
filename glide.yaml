@@ -39,8 +39,10 @@ import:
   version: ^v1.1.0
 - package: google.golang.org/grpc
   version: ~1.10.0
-- package: github.com/grpc-ecosystem/go-grpc-prometheus
-  version: ^1.2.0
+#- package: github.com/grpc-ecosystem/go-grpc-prometheus
+#  version: ^1.2.0
+# temporary fork to allow summary support until the PR is merged upstream
+- package: github.com/erwinvaneyk/go-grpc-prometheus
 - package: github.com/grpc-ecosystem/go-grpc-middleware
   version: v1.0.0
 - package: golang.org/x/net
