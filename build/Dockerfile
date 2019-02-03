@@ -27,4 +27,6 @@ COPY --from=builder /go/src/github.com/fission/fission-workflows/fission-workflo
 # --internal - enables the internal function runtime
 # --controller - runs the controller and scheduler components
 # --metrics - enables Prometheus and Jaeger metric collection.
-CMD ["/fission-workflows", "--api", "--internal", "--controller", "--metrics"]
+ENTRYPOINT ["/fission-workflows-bundle"]
+
+CMD ["--api", "--internal", "--controller", "--metrics"]
